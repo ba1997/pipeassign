@@ -1,11 +1,40 @@
 pipeline {
-	agent none 
+	agent { label 'master' } 
 	stages {
-		stage('Build') { 
-			agent { label 'master' }
+		stage('Both build and test') {
+			parallel {
+				stage('Build') { 
+					steps {
+						sh 'sleep 15; echo "This is a Build stage"'
+					}
+				}
+				
+				stage('Test'){
+					steps {
+						sh '''
+							sleep 15
+							echo "This is a Test stage"
+						'''	
+					}
+				}
+			} 
+		}
+		stage('Deploy'){
 			steps {
-				//sh 'https://github.com/ba1997/assign1.git'
-				sh 'echo "this is build"
+				sh '''
+					sleep 5
+					echo "This is a Deploy stage"
+				'''
 			}
 		}
+		
+		stage('My-stage'){
+			steps {
+				sh '''
+					sleep 5
+					echo "This is a My-stage stage"
+				'''
+			}
+		}	
 	}
+}
