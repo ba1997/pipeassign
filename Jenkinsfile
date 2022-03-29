@@ -4,7 +4,7 @@ pipeline {
 		stage('Build') { 
 			agent { label 'master' }
 			steps {
-				sh 'https://github.com/ba1997/assign1.git'
+				//sh 'https://github.com/ba1997/assign1.git'
 				sh 'echo "this is build"
 			}
 		}
